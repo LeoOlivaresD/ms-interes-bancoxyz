@@ -1,5 +1,6 @@
 package com.duoc.ms_interes_bancoxyz.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,17 @@ public class InteresService {
     }
 
     public List<DtoInteres> findAllInterests() {
+        LocalDateTime horaActual = LocalDateTime.now();
         return interesRepository.findAll().stream()
                 .map(interes -> new DtoInteres(
                         interes.getIdCuenta(),
                         interes.getNombreCliente(),
                         interes.getSaldo(),
                         interes.getEdadCliente(),
-                        interes.getTipoInteres()))
+                        interes.getTipoInteres(),
+                        horaActual // hora actual
+                ))
                 .toList();
-
     }
 
 }
